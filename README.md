@@ -52,7 +52,8 @@ docs/                   Architecture, security, extension SDK notes
 cd apps/api
 python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[dev]'
-.venv/bin/python -m uvicorn rpa2apa_api.main:app --reload --port 8080
+cd ../..
+make api-run
 ```
 
 ### 2. Run CLI
