@@ -4,6 +4,8 @@
 
 > From Robots to Agents. Safely.
 
+![RPA2APA features diagram](media_resources/features.png)
+
 ## What makes RPA2APA different
 
 RPA2APA does not perform a blind `XAML -> Python` translation. It:
@@ -37,6 +39,10 @@ infra/
   k8s/                 Kubernetes starter manifests
 docs/                   Architecture, security, extension SDK notes
 ```
+
+## Architecture
+
+![RPA2APA architecture diagram](media_resources/architecture_diagram.png)
 
 ## Quick start
 
@@ -88,6 +94,8 @@ The API includes provider adapters for:
 Model use is governed by `ModelPolicyEngine`. Provider calls are disabled unless explicitly configured. Sensitive data can be routed to local models.
 
 ## Safe-by-default conversion
+
+![RPA2APA workflow](media_resources/howitsworks.png)
 
 A migration has explicit states:
 
