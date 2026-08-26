@@ -4,7 +4,7 @@ api-test:
 	cd apps/api && pytest
 
 api-run:
-	cd apps/api && uvicorn rpa2apa_api.main:app --reload --port 8080
+	cd apps/api && .venv/bin/python -m uvicorn rpa2apa_api.main:app --reload --port 8080
 
 web-run:
 	cd apps/web && npm run dev

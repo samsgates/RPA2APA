@@ -13,6 +13,7 @@ class TargetCompiler:
     """
 
     def __init__(self, require_review: bool = True):
+        self.require_review = require_review
         self.base = PythonAPACompiler(require_review=require_review)
 
     def compile(self, plan: MigrationPlan, output: str | Path, target: str = "python") -> Path:

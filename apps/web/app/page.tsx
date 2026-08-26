@@ -6,7 +6,7 @@ type Plan = {project_name:string,migration_confidence:number,approved:boolean,no
 const API=process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
 export default function Home(){
- const [path,setPath]=useState('/workspace/examples/uipath-invoice');
+ const [path,setPath]=useState('../../examples/uipath-invoice');
  const [projectId,setProjectId]=useState('');
  const [plan,setPlan]=useState<Plan|null>(null);
  const [busy,setBusy]=useState(false);

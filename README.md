@@ -50,10 +50,9 @@ docs/                   Architecture, security, extension SDK notes
 
 ```bash
 cd apps/api
-python -m venv .venv
-source .venv/bin/activate
-pip install -e '.[dev]'
-uvicorn rpa2apa_api.main:app --reload --port 8080
+python3 -m venv .venv
+.venv/bin/python -m pip install -e '.[dev]'
+.venv/bin/python -m uvicorn rpa2apa_api.main:app --reload --port 8080
 ```
 
 ### 2. Run CLI
@@ -74,6 +73,8 @@ npm run dev
 ```
 
 Open `http://localhost:3000`.
+
+![RPA2APA Review Studio screen](media_resources/review_studio_screen.jpg)
 
 ### 4. Docker Compose
 
