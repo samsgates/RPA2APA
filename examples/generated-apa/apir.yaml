@@ -1,0 +1,369 @@
+apiVersion: rpa2apa.io/v1
+kind: AgenticProcess
+metadata:
+  name: InvoiceProcessor
+  migrationConfidence: 69
+spec:
+  goal: Migrated agentic process for InvoiceProcessor
+  nodes:
+  - id: node:Main:1:Sequence
+    type: deterministic
+    name: Process Supplier Invoice
+    intent: Process Supplier Invoice
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:1:Sequence
+      display_name: Process Supplier Invoice
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 40
+      risk: MEDIUM
+      confidence: 0.45
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:2:GetIMAPMailMessages
+    type: tool
+    name: Read Invoice Email
+    intent: Read Invoice Email
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:2:GetIMAPMailMessages
+      display_name: Read Invoice Email
+      source_path: Main.xaml
+    config:
+      classification: TOOLIFY
+      agentization_score: 12
+      risk: MEDIUM
+      confidence: 0.82
+      model_profile: null
+      tool_name: read_invoice_email
+      requires_approval: false
+  - id: node:Main:3:DocumentUnderstanding
+    type: agent
+    name: Extract Invoice Fields
+    intent: Extract Invoice Fields
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:3:DocumentUnderstanding
+      display_name: Extract Invoice Fields
+      source_path: Main.xaml
+    config:
+      classification: REASON
+      agentization_score: 72
+      risk: MEDIUM
+      confidence: 0.82
+      model_profile: reasoning-default
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:4:ReadRange
+    type: deterministic
+    name: Read Approved Supplier List
+    intent: Read Approved Supplier List
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:4:ReadRange
+      display_name: Read Approved Supplier List
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 40
+      risk: HIGH
+      confidence: 0.45
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:5:If
+    type: decision
+    name: Validate Supplier
+    intent: Validate Supplier
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:5:If
+      display_name: Validate Supplier
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 25
+      risk: LOW
+      confidence: 0.82
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:6:If.Then
+    type: decision
+    name: If.Then
+    intent: If.Then
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:6:If.Then
+      display_name: If.Then
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 25
+      risk: LOW
+      confidence: 0.82
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:7:Sequence
+    type: deterministic
+    name: Valid Supplier
+    intent: Valid Supplier
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:7:Sequence
+      display_name: Valid Supplier
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 40
+      risk: MEDIUM
+      confidence: 0.45
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:8:Assign
+    type: deterministic
+    name: Mark Supplier Valid
+    intent: Mark Supplier Valid
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:8:Assign
+      display_name: Mark Supplier Valid
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 2
+      risk: LOW
+      confidence: 0.82
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:9:If.Else
+    type: decision
+    name: If.Else
+    intent: If.Else
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:9:If.Else
+      display_name: If.Else
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 25
+      risk: LOW
+      confidence: 0.82
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:10:Sequence
+    type: deterministic
+    name: Invalid Supplier
+    intent: Invalid Supplier
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:10:Sequence
+      display_name: Invalid Supplier
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 40
+      risk: MEDIUM
+      confidence: 0.45
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:11:ActionCenter
+    type: agent
+    name: Request Supplier Review
+    intent: Request Supplier Review
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:11:ActionCenter
+      display_name: Request Supplier Review
+      source_path: Main.xaml
+    config:
+      classification: REASON
+      agentization_score: 70
+      risk: MEDIUM
+      confidence: 0.82
+      model_profile: reasoning-default
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:12:Click
+    type: browser
+    name: Open SAP Invoice Entry
+    intent: Open SAP Invoice Entry
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:12:Click
+      display_name: Open SAP Invoice Entry
+      source_path: Main.xaml
+    config:
+      classification: TOOLIFY
+      agentization_score: 35
+      risk: MEDIUM
+      confidence: 0.82
+      model_profile: null
+      tool_name: open_sap_invoice_entry
+      requires_approval: false
+  - id: node:Main:13:TypeInto
+    type: deterministic
+    name: Enter Invoice Data
+    intent: Enter Invoice Data
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:13:TypeInto
+      display_name: Enter Invoice Data
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 40
+      risk: MEDIUM
+      confidence: 0.45
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:14:If
+    type: agent
+    name: Assess Exception Reason
+    intent: Assess Exception Reason
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:14:If
+      display_name: Assess Exception Reason
+      source_path: Main.xaml
+    config:
+      classification: REASON
+      agentization_score: 70
+      risk: LOW
+      confidence: 0.82
+      model_profile: reasoning-default
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:15:If.Then
+    type: decision
+    name: If.Then
+    intent: If.Then
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:15:If.Then
+      display_name: If.Then
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 25
+      risk: LOW
+      confidence: 0.82
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:16:ActionCenter
+    type: deterministic
+    name: Approve High Value Payment
+    intent: Approve High Value Payment
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:16:ActionCenter
+      display_name: Approve High Value Payment
+      source_path: Main.xaml
+    config:
+      classification: KEEP
+      agentization_score: 40
+      risk: HIGH
+      confidence: 0.45
+      model_profile: null
+      tool_name: null
+      requires_approval: false
+  - id: node:Main:17:HttpRequest
+    type: api
+    name: Create Payment API
+    intent: Create Payment API
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:17:HttpRequest
+      display_name: Create Payment API
+      source_path: Main.xaml
+    config:
+      classification: TOOLIFY
+      agentization_score: 5
+      risk: HIGH
+      confidence: 0.82
+      model_profile: null
+      tool_name: create_payment_api
+      requires_approval: true
+  - id: node:Main:18:SendSMTPMailMessage
+    type: tool
+    name: Send Supplier Confirmation
+    intent: Send Supplier Confirmation
+    source_refs:
+    - workflow: Main.xaml
+      activity_id: Main:18:SendSMTPMailMessage
+      display_name: Send Supplier Confirmation
+      source_path: Main.xaml
+    config:
+      classification: TOOLIFY
+      agentization_score: 12
+      risk: MEDIUM
+      confidence: 0.82
+      model_profile: null
+      tool_name: send_supplier_confirmation
+      requires_approval: false
+  edges:
+  - source: node:Main:1:Sequence
+    target: node:Main:2:GetIMAPMailMessages
+    condition: null
+  - source: node:Main:2:GetIMAPMailMessages
+    target: node:Main:3:DocumentUnderstanding
+    condition: null
+  - source: node:Main:3:DocumentUnderstanding
+    target: node:Main:4:ReadRange
+    condition: null
+  - source: node:Main:4:ReadRange
+    target: node:Main:5:If
+    condition: null
+  - source: node:Main:5:If
+    target: node:Main:6:If.Then
+    condition: null
+  - source: node:Main:6:If.Then
+    target: node:Main:7:Sequence
+    condition: null
+  - source: node:Main:7:Sequence
+    target: node:Main:8:Assign
+    condition: null
+  - source: node:Main:8:Assign
+    target: node:Main:9:If.Else
+    condition: null
+  - source: node:Main:9:If.Else
+    target: node:Main:10:Sequence
+    condition: null
+  - source: node:Main:10:Sequence
+    target: node:Main:11:ActionCenter
+    condition: null
+  - source: node:Main:11:ActionCenter
+    target: node:Main:12:Click
+    condition: null
+  - source: node:Main:12:Click
+    target: node:Main:13:TypeInto
+    condition: null
+  - source: node:Main:13:TypeInto
+    target: node:Main:14:If
+    condition: null
+  - source: node:Main:14:If
+    target: node:Main:15:If.Then
+    condition: null
+  - source: node:Main:15:If.Then
+    target: node:Main:16:ActionCenter
+    condition: null
+  - source: node:Main:16:ActionCenter
+    target: node:Main:17:HttpRequest
+    condition: null
+  - source: node:Main:17:HttpRequest
+    target: node:Main:18:SendSMTPMailMessage
+    condition: null
+  governance:
+    reviewApproved: true
+    strategy: balanced

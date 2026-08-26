@@ -1,0 +1,34 @@
+version: v1
+tools:
+- tool: read_invoice_email
+  risk: MEDIUM
+  requiresApproval: false
+  source:
+  - workflow: Main.xaml
+    activity_id: Main:2:GetIMAPMailMessages
+    display_name: Read Invoice Email
+    source_path: Main.xaml
+- tool: open_sap_invoice_entry
+  risk: MEDIUM
+  requiresApproval: false
+  source:
+  - workflow: Main.xaml
+    activity_id: Main:12:Click
+    display_name: Open SAP Invoice Entry
+    source_path: Main.xaml
+- tool: create_payment_api
+  risk: HIGH
+  requiresApproval: true
+  source:
+  - workflow: Main.xaml
+    activity_id: Main:17:HttpRequest
+    display_name: Create Payment API
+    source_path: Main.xaml
+- tool: send_supplier_confirmation
+  risk: MEDIUM
+  requiresApproval: false
+  source:
+  - workflow: Main.xaml
+    activity_id: Main:18:SendSMTPMailMessage
+    display_name: Send Supplier Confirmation
+    source_path: Main.xaml

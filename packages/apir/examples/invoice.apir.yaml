@@ -1,0 +1,40 @@
+apiVersion: rpa2apa.io/v1
+kind: AgenticProcess
+metadata:
+  name: invoice-processing
+spec:
+  goal: Process supplier invoices safely.
+  nodes:
+    - id: extract
+      type: agent
+      name: Extract invoice
+      intent: Extract and normalize fields from an unstructured invoice.
+      config:
+        model_profile: document-private
+    - id: supplier
+      type: api
+      name: Verify supplier
+      intent: Retrieve the supplier record from ERP.
+    - id: exception
+      type: agent
+      name: Assess exception
+      intent: Assess ambiguous invoice mismatches using policy evidence.
+    - id: approve
+      type: human
+      name: Approval gate
+      intent: Approve high-risk or low-confidence cases.
+    - id: payment
+      type: tool
+      name: Create payment
+      intent: Create the approved payable using a deterministic ERP API.
+  edges:
+    - source: extract
+      target: supplier
+    - source: supplier
+      target: exception
+    - source: exception
+      target: approve
+    - source: approve
+      target: payment
+  governance:
+    reviewApproved: false

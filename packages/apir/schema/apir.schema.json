@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rpa2apa.io/schemas/apir-v1.json",
+  "title": "Agentic Process Intermediate Representation",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {"const": "rpa2apa.io/v1"},
+    "kind": {"const": "AgenticProcess"},
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {"name": {"type": "string"}}
+    },
+    "spec": {
+      "type": "object",
+      "required": ["goal", "nodes", "edges"],
+      "properties": {
+        "goal": {"type": "string"},
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "name", "intent"],
+            "properties": {
+              "id": {"type": "string"},
+              "type": {"enum": ["deterministic","agent","tool","human","decision","router","subprocess","memory","event","timer","queue","policy","guardrail","validation","retrieval","computer","browser","api","mcp"]},
+              "name": {"type": "string"},
+              "intent": {"type": "string"},
+              "source_refs": {"type": "array"},
+              "config": {"type": "object"}
+            }
+          }
+        },
+        "edges": {"type": "array"},
+        "governance": {"type": "object"}
+      }
+    }
+  }
+}

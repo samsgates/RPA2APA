@@ -1,0 +1,154 @@
+{
+  "node:Main:1:Sequence": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:1:Sequence",
+      "display_name": "Process Supplier Invoice",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:2:GetIMAPMailMessages": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:2:GetIMAPMailMessages",
+      "display_name": "Read Invoice Email",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:3:DocumentUnderstanding": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:3:DocumentUnderstanding",
+      "display_name": "Extract Invoice Fields",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:4:ReadRange": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:4:ReadRange",
+      "display_name": "Read Approved Supplier List",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:5:If": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:5:If",
+      "display_name": "Validate Supplier",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:6:If.Then": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:6:If.Then",
+      "display_name": "If.Then",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:7:Sequence": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:7:Sequence",
+      "display_name": "Valid Supplier",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:8:Assign": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:8:Assign",
+      "display_name": "Mark Supplier Valid",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:9:If.Else": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:9:If.Else",
+      "display_name": "If.Else",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:10:Sequence": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:10:Sequence",
+      "display_name": "Invalid Supplier",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:11:ActionCenter": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:11:ActionCenter",
+      "display_name": "Request Supplier Review",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:12:Click": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:12:Click",
+      "display_name": "Open SAP Invoice Entry",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:13:TypeInto": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:13:TypeInto",
+      "display_name": "Enter Invoice Data",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:14:If": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:14:If",
+      "display_name": "Assess Exception Reason",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:15:If.Then": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:15:If.Then",
+      "display_name": "If.Then",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:16:ActionCenter": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:16:ActionCenter",
+      "display_name": "Approve High Value Payment",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:17:HttpRequest": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:17:HttpRequest",
+      "display_name": "Create Payment API",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:18:SendSMTPMailMessage": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:18:SendSMTPMailMessage",
+      "display_name": "Send Supplier Confirmation",
+      "source_path": "Main.xaml"
+    }
+  ],
+  "node:Main:19:Delay": [
+    {
+      "workflow": "Main.xaml",
+      "activity_id": "Main:19:Delay",
+      "display_name": "Delay 5 seconds",
+      "source_path": "Main.xaml"
+    }
+  ]
+}

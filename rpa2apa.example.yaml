@@ -1,0 +1,51 @@
+version: 1
+migration:
+  strategy: balanced
+  require_review: true
+  production_quality_gates:
+    source_coverage: 0.95
+    behavioral_equivalence: 0.98
+    critical_unsupported: 0
+
+models:
+  profiles:
+    - id: cloud-reasoning
+      provider: openai
+      model: your-approved-reasoning-model
+      enabled: false
+      capabilities: [reasoning, structured_output, tools, vision]
+      allowed_data: [PUBLIC, INTERNAL]
+      relative_cost: 1.0
+      quality_score: 0.95
+
+    - id: private-local
+      provider: ollama
+      model: your-local-model
+      enabled: false
+      capabilities: [reasoning, structured_output, tools]
+      allowed_data: [PUBLIC, INTERNAL, CONFIDENTIAL, RESTRICTED, PII]
+      relative_cost: 0.1
+      quality_score: 0.75
+
+  routing:
+    restricted:
+      prefer_local: true
+    pii:
+      prefer_local: true
+    critic:
+      mode: fallback
+      max_models: 3
+
+governance:
+  autonomy_default: 2
+  max_agent_steps: 20
+  max_tool_calls: 40
+  max_cost_usd_per_run: 5.0
+  approvals:
+    high_risk: required
+    critical_risk: security_and_governance
+
+security:
+  secrets_in_source: forbidden
+  external_model_data_default: deny
+  prompt_injection_protection: true

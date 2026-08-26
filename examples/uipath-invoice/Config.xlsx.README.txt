@@ -1,0 +1,1 @@
+Placeholder for Config.xlsx. Real projects may include Excel configuration; RPA2APA records such assets and should ingest them through a dedicated asset parser.

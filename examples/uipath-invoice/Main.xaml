@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Activity xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="http://schemas.uipath.com/workflow/activities">
+  <Sequence DisplayName="Process Supplier Invoice">
+    <ui:GetIMAPMailMessages DisplayName="Read Invoice Email" />
+    <ui:DocumentUnderstanding DisplayName="Extract Invoice Fields" />
+    <ui:ReadRange DisplayName="Read Approved Supplier List" />
+    <If DisplayName="Validate Supplier">
+      <If.Then><Sequence DisplayName="Valid Supplier"><Assign DisplayName="Mark Supplier Valid" /></Sequence></If.Then>
+      <If.Else><Sequence DisplayName="Invalid Supplier"><ui:ActionCenter DisplayName="Request Supplier Review" /></Sequence></If.Else>
+    </If>
+    <ui:Click DisplayName="Open SAP Invoice Entry" />
+    <ui:TypeInto DisplayName="Enter Invoice Data" />
+    <If DisplayName="Assess Exception Reason">
+      <If.Then><ui:ActionCenter DisplayName="Approve High Value Payment" /></If.Then>
+    </If>
+    <ui:HttpRequest DisplayName="Create Payment API" />
+    <ui:SendSMTPMailMessage DisplayName="Send Supplier Confirmation" />
+    <Delay DisplayName="Delay 5 seconds" />
+  </Sequence>
+</Activity>

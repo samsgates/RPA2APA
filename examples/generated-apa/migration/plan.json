@@ -1,0 +1,605 @@
+{
+  "project_name": "InvoiceProcessor",
+  "strategy": "balanced",
+  "nodes": [
+    {
+      "id": "node:Main:1:Sequence",
+      "name": "Process Supplier Invoice",
+      "intent": "Process Supplier Invoice",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:1:Sequence",
+          "display_name": "Process Supplier Invoice",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 40,
+      "risk": "MEDIUM",
+      "confidence": 0.45,
+      "rationale": "Unknown activity requires explicit mapping or review.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": true,
+      "metadata": {
+        "source_activity_type": "Sequence"
+      }
+    },
+    {
+      "id": "node:Main:2:GetIMAPMailMessages",
+      "name": "Read Invoice Email",
+      "intent": "Read Invoice Email",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:2:GetIMAPMailMessages",
+          "display_name": "Read Invoice Email",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "TOOLIFY",
+      "agentization_score": 12,
+      "risk": "MEDIUM",
+      "confidence": 0.82,
+      "rationale": "Communication operation becomes an explicit audited tool.",
+      "target_type": "tool",
+      "model_profile": null,
+      "tool_name": "read_invoice_email",
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "GetIMAPMailMessages"
+      }
+    },
+    {
+      "id": "node:Main:3:DocumentUnderstanding",
+      "name": "Extract Invoice Fields",
+      "intent": "Extract Invoice Fields",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:3:DocumentUnderstanding",
+          "display_name": "Extract Invoice Fields",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "REASON",
+      "agentization_score": 72,
+      "risk": "MEDIUM",
+      "confidence": 0.82,
+      "rationale": "Unstructured document understanding benefits from bounded model reasoning. Semantic/ambiguous intent signals raise the agentization opportunity.",
+      "target_type": "agent",
+      "model_profile": "reasoning-default",
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "DocumentUnderstanding"
+      }
+    },
+    {
+      "id": "node:Main:4:ReadRange",
+      "name": "Read Approved Supplier List",
+      "intent": "Read Approved Supplier List",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:4:ReadRange",
+          "display_name": "Read Approved Supplier List",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 40,
+      "risk": "HIGH",
+      "confidence": 0.45,
+      "rationale": "Unknown activity requires explicit mapping or review.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": true,
+      "metadata": {
+        "source_activity_type": "ReadRange"
+      }
+    },
+    {
+      "id": "node:Main:5:If",
+      "name": "Validate Supplier",
+      "intent": "Validate Supplier",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:5:If",
+          "display_name": "Validate Supplier",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 25,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Existing explicit business rules should remain deterministic unless semantic ambiguity is discovered.",
+      "target_type": "decision",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "If"
+      }
+    },
+    {
+      "id": "node:Main:6:If.Then",
+      "name": "If.Then",
+      "intent": "If.Then",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:6:If.Then",
+          "display_name": "If.Then",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 25,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Existing explicit business rules should remain deterministic unless semantic ambiguity is discovered.",
+      "target_type": "decision",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "If.Then"
+      }
+    },
+    {
+      "id": "node:Main:7:Sequence",
+      "name": "Valid Supplier",
+      "intent": "Valid Supplier",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:7:Sequence",
+          "display_name": "Valid Supplier",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 40,
+      "risk": "MEDIUM",
+      "confidence": 0.45,
+      "rationale": "Unknown activity requires explicit mapping or review.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": true,
+      "metadata": {
+        "source_activity_type": "Sequence"
+      }
+    },
+    {
+      "id": "node:Main:8:Assign",
+      "name": "Mark Supplier Valid",
+      "intent": "Mark Supplier Valid",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:8:Assign",
+          "display_name": "Mark Supplier Valid",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 2,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Pure deterministic state or logging operation.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "Assign"
+      }
+    },
+    {
+      "id": "node:Main:9:If.Else",
+      "name": "If.Else",
+      "intent": "If.Else",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:9:If.Else",
+          "display_name": "If.Else",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 25,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Existing explicit business rules should remain deterministic unless semantic ambiguity is discovered.",
+      "target_type": "decision",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "If.Else"
+      }
+    },
+    {
+      "id": "node:Main:10:Sequence",
+      "name": "Invalid Supplier",
+      "intent": "Invalid Supplier",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:10:Sequence",
+          "display_name": "Invalid Supplier",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 40,
+      "risk": "MEDIUM",
+      "confidence": 0.45,
+      "rationale": "Unknown activity requires explicit mapping or review.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": true,
+      "metadata": {
+        "source_activity_type": "Sequence"
+      }
+    },
+    {
+      "id": "node:Main:11:ActionCenter",
+      "name": "Request Supplier Review",
+      "intent": "Request Supplier Review",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:11:ActionCenter",
+          "display_name": "Request Supplier Review",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "REASON",
+      "agentization_score": 70,
+      "risk": "MEDIUM",
+      "confidence": 0.82,
+      "rationale": "Unknown activity requires explicit mapping or review. Semantic/ambiguous intent signals raise the agentization opportunity.",
+      "target_type": "agent",
+      "model_profile": "reasoning-default",
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "ActionCenter"
+      }
+    },
+    {
+      "id": "node:Main:12:Click",
+      "name": "Open SAP Invoice Entry",
+      "intent": "Open SAP Invoice Entry",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:12:Click",
+          "display_name": "Open SAP Invoice Entry",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "TOOLIFY",
+      "agentization_score": 35,
+      "risk": "MEDIUM",
+      "confidence": 0.82,
+      "rationale": "UI operations should be consolidated into semantic tools, preferably replaced by APIs.",
+      "target_type": "browser",
+      "model_profile": null,
+      "tool_name": "open_sap_invoice_entry",
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "Click"
+      }
+    },
+    {
+      "id": "node:Main:13:TypeInto",
+      "name": "Enter Invoice Data",
+      "intent": "Enter Invoice Data",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:13:TypeInto",
+          "display_name": "Enter Invoice Data",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 40,
+      "risk": "MEDIUM",
+      "confidence": 0.45,
+      "rationale": "Unknown activity requires explicit mapping or review.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": true,
+      "metadata": {
+        "source_activity_type": "TypeInto"
+      }
+    },
+    {
+      "id": "node:Main:14:If",
+      "name": "Assess Exception Reason",
+      "intent": "Assess Exception Reason",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:14:If",
+          "display_name": "Assess Exception Reason",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "REASON",
+      "agentization_score": 70,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Existing explicit business rules should remain deterministic unless semantic ambiguity is discovered. Semantic/ambiguous intent signals raise the agentization opportunity.",
+      "target_type": "agent",
+      "model_profile": "reasoning-default",
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "If"
+      }
+    },
+    {
+      "id": "node:Main:15:If.Then",
+      "name": "If.Then",
+      "intent": "If.Then",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:15:If.Then",
+          "display_name": "If.Then",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 25,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Existing explicit business rules should remain deterministic unless semantic ambiguity is discovered.",
+      "target_type": "decision",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "If.Then"
+      }
+    },
+    {
+      "id": "node:Main:16:ActionCenter",
+      "name": "Approve High Value Payment",
+      "intent": "Approve High Value Payment",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:16:ActionCenter",
+          "display_name": "Approve High Value Payment",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "KEEP",
+      "agentization_score": 40,
+      "risk": "HIGH",
+      "confidence": 0.45,
+      "rationale": "Unknown activity requires explicit mapping or review.",
+      "target_type": "deterministic",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": true,
+      "metadata": {
+        "source_activity_type": "ActionCenter"
+      }
+    },
+    {
+      "id": "node:Main:17:HttpRequest",
+      "name": "Create Payment API",
+      "intent": "Create Payment API",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:17:HttpRequest",
+          "display_name": "Create Payment API",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "TOOLIFY",
+      "agentization_score": 5,
+      "risk": "HIGH",
+      "confidence": 0.82,
+      "rationale": "Existing deterministic integration is best exposed as a typed tool.",
+      "target_type": "api",
+      "model_profile": null,
+      "tool_name": "create_payment_api",
+      "requires_approval": true,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "HttpRequest"
+      }
+    },
+    {
+      "id": "node:Main:18:SendSMTPMailMessage",
+      "name": "Send Supplier Confirmation",
+      "intent": "Send Supplier Confirmation",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:18:SendSMTPMailMessage",
+          "display_name": "Send Supplier Confirmation",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "TOOLIFY",
+      "agentization_score": 12,
+      "risk": "MEDIUM",
+      "confidence": 0.82,
+      "rationale": "Communication operation becomes an explicit audited tool.",
+      "target_type": "tool",
+      "model_profile": null,
+      "tool_name": "send_supplier_confirmation",
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "SendSMTPMailMessage"
+      }
+    },
+    {
+      "id": "node:Main:19:Delay",
+      "name": "Delay 5 seconds",
+      "intent": "Delay 5 seconds",
+      "source_refs": [
+        {
+          "workflow": "Main.xaml",
+          "activity_id": "Main:19:Delay",
+          "display_name": "Delay 5 seconds",
+          "source_path": "Main.xaml"
+        }
+      ],
+      "classification": "RETIRE",
+      "agentization_score": 0,
+      "risk": "LOW",
+      "confidence": 0.82,
+      "rationale": "Implementation timing mechanics should normally be replaced by explicit readiness checks.",
+      "target_type": "retired",
+      "model_profile": null,
+      "tool_name": null,
+      "requires_approval": false,
+      "user_override": false,
+      "metadata": {
+        "source_activity_type": "Delay"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "node:Main:1:Sequence",
+      "target": "node:Main:2:GetIMAPMailMessages",
+      "condition": null
+    },
+    {
+      "source": "node:Main:2:GetIMAPMailMessages",
+      "target": "node:Main:3:DocumentUnderstanding",
+      "condition": null
+    },
+    {
+      "source": "node:Main:3:DocumentUnderstanding",
+      "target": "node:Main:4:ReadRange",
+      "condition": null
+    },
+    {
+      "source": "node:Main:4:ReadRange",
+      "target": "node:Main:5:If",
+      "condition": null
+    },
+    {
+      "source": "node:Main:5:If",
+      "target": "node:Main:6:If.Then",
+      "condition": null
+    },
+    {
+      "source": "node:Main:6:If.Then",
+      "target": "node:Main:7:Sequence",
+      "condition": null
+    },
+    {
+      "source": "node:Main:7:Sequence",
+      "target": "node:Main:8:Assign",
+      "condition": null
+    },
+    {
+      "source": "node:Main:8:Assign",
+      "target": "node:Main:9:If.Else",
+      "condition": null
+    },
+    {
+      "source": "node:Main:9:If.Else",
+      "target": "node:Main:10:Sequence",
+      "condition": null
+    },
+    {
+      "source": "node:Main:10:Sequence",
+      "target": "node:Main:11:ActionCenter",
+      "condition": null
+    },
+    {
+      "source": "node:Main:11:ActionCenter",
+      "target": "node:Main:12:Click",
+      "condition": null
+    },
+    {
+      "source": "node:Main:12:Click",
+      "target": "node:Main:13:TypeInto",
+      "condition": null
+    },
+    {
+      "source": "node:Main:13:TypeInto",
+      "target": "node:Main:14:If",
+      "condition": null
+    },
+    {
+      "source": "node:Main:14:If",
+      "target": "node:Main:15:If.Then",
+      "condition": null
+    },
+    {
+      "source": "node:Main:15:If.Then",
+      "target": "node:Main:16:ActionCenter",
+      "condition": null
+    },
+    {
+      "source": "node:Main:16:ActionCenter",
+      "target": "node:Main:17:HttpRequest",
+      "condition": null
+    },
+    {
+      "source": "node:Main:17:HttpRequest",
+      "target": "node:Main:18:SendSMTPMailMessage",
+      "condition": null
+    },
+    {
+      "source": "node:Main:18:SendSMTPMailMessage",
+      "target": "node:Main:19:Delay",
+      "condition": null
+    }
+  ],
+  "warnings": [],
+  "unsupported": [
+    "Process Supplier Invoice",
+    "Read Approved Supplier List",
+    "Valid Supplier",
+    "Invalid Supplier",
+    "Enter Invoice Data",
+    "Approve High Value Payment"
+  ],
+  "migration_confidence": 69,
+  "approval_required": true,
+  "approved": true,
+  "approved_by": "cli-user"
+}
